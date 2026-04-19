@@ -1,30 +1,63 @@
-import { IPlayer } from "@/interfaces/IPlayer";
-import { BattleState, useBattleStore } from "@/store/useBattleStore";
+import { useEffect, useMemo, useRef } from "react";
+import { setReady } from "@/api/lobby";
+import { assignPokemon } from "@/api/pokemon";
+import { IPlayer, IPlayers } from "@/interfaces/IPlayer";
+import { useBattleStore } from "@/store/useBattleStore";
 import { useSessionStore } from "@/store/useSessionStore";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export const useWaitingOpponent = () => {
-  const navigate = useNavigate();
   const nickname = useSessionStore((state) => state.nickname);
-  const battleState = useBattleStore((state) => state);
-  const [showReadyButton, setShowReadyButton] = useState(false);
+  const battlePlayers = useBattleStore((state) => state.players);
 
-  const selectPlayers = (state: BattleState, nickname: string) => {
-    const current = state.players.find(
+  const players = useMemo<IPlayers>(() => {
+    const current = battlePlayers.find(
       (player) => player.nickname === nickname,
-    ) as IPlayer | undefined;
+    ) as IPlayer;
 
-    const opponent = state.players.find(
+    const opponent = battlePlayers.find(
       (player) => player.nickname !== nickname,
     ) as IPlayer | undefined;
 
     return { current, opponent };
+  }, [battlePlayers, nickname]);
+
+  const showReadyButton =
+    players.current?.isReady !== true &&
+    players.current?.pokemonTeam?.length === 3;
+
+  const hasAssignedPokemon = useRef(false);
+
+  useEffect(() => {
+    const assignPokemonTeam = async () => {
+      if (
+        nickname &&
+        players.current &&
+        players.current.pokemonTeam?.length === 0 &&
+        !hasAssignedPokemon.current
+      ) {
+        hasAssignedPokemon.current = true;
+        try {
+          await assignPokemon(nickname);
+        } catch (error) {
+          console.error("Failed to assign pokemon team:", error);
+          hasAssignedPokemon.current = false;
+        }
+      }
+    };
+
+    assignPokemonTeam();
+  }, [nickname, players.current]);
+
+  const handleReady = async () => {
+    if (nickname) {
+      await setReady(nickname);
+    }
   };
 
   return {
     nickname,
     showReadyButton,
-    players: selectPlayers(battleState, nickname),
+    players,
+    handleReady,
   };
 };

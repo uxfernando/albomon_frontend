@@ -7,7 +7,9 @@ export const joinLobby = async (nickname: string) => {
   return response.data;
 };
 
-export const setReady = async () => {
-  const response = await httpClient.post("/api/lobby/ready");
+export const setReady = async (nickname: string) => {
+  const response = await httpClient.post("/api/lobby/ready", {
+    nickname,
+  });
   return response.data;
 };

@@ -5,3 +5,8 @@ export interface IPlayer {
   pokemonTeam: IPokemon[];
   isReady: boolean;
 }
+
+export interface IPlayers {
+  current: IPlayer | undefined;
+  opponent: IPlayer | undefined;
+}

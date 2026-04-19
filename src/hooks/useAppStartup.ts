@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSessionStore } from "@/store/useSessionStore";
 import { setServerIpToClient } from "@/clients/http";
-import { checkServerHealth } from "@/api/health";
 import { connectSocket } from "@/clients/socket";
 import { getBattleDetails } from "@/api/battle";
 import { useBattleStore } from "@/store/useBattleStore";
