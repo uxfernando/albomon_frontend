@@ -1,7 +1,9 @@
 import { httpClient } from "../clients/http";
 
-export const joinLobby = async () => {
-  const response = await httpClient.get("/api/lobby/join");
+export const joinLobby = async (nickname: string) => {
+  const response = await httpClient.post("/api/lobby/join", {
+    nickname,
+  });
   return response.data;
 };
 

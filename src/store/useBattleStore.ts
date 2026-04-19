@@ -3,8 +3,9 @@ import { persist } from "zustand/middleware";
 
 import { IBattle } from "@/interfaces/IBattle";
 import { BattleStatus } from "@/enums/IBattle";
+import { IPlayer } from "@/interfaces/IPlayer";
 
-interface BattleState extends IBattle {
+export interface BattleState extends IBattle {
   setBattle: (battle: IBattle) => void;
   getBattleStatus: () => BattleStatus;
 }

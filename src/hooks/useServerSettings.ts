@@ -28,12 +28,14 @@ export const useServerSettings = () => {
 
   const handleSubmit = async () => {
     if (!inputValue) {
-      setError("Necesitas ingresar una IP válida para comenzar el combate.");
+      setError("Necesitas ingresar una URL válida para comenzar el combate.");
       return;
     }
 
     if (!isValidServerIp(inputValue)) {
-      setError("Necesitas ingresar una IP válida (ej. 192.168.1.1:8080).");
+      setError(
+        "Necesitas incluir http:// o https:// en la IP (ej. http://192.168.1.1:8080).",
+      );
       return;
     }
 

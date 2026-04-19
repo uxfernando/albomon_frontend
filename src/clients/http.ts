@@ -7,6 +7,6 @@ export const httpClient = axios.create({
   },
 });
 
-export const setServerIpToClient = (ip: string) => {
-  httpClient.defaults.baseURL = `http://${ip}`;
+export const setServerIpToClient = (serverIp: string) => {
+  httpClient.defaults.baseURL = serverIp;
 };

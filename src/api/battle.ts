@@ -9,3 +9,8 @@ export const restartBattle = async () => {
   const response = await httpClient.post("/api/battle/reset");
   return response.data;
 };
+
+export const getBattleDetails = async () => {
+  const response = await httpClient.get("/api/battle");
+  return response.data;
+};

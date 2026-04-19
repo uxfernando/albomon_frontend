@@ -1,29 +1,26 @@
 import { io, Socket } from "socket.io-client";
+import { registerAllSocketListeners } from "@/sockets";
 
-let socket: Socket | null = null;
+export let socket: Socket | null = null;
 
-export const connectSocket = (serverIp: string) => {
+export const connectSocket = (serverIp: string, nickname: string) => {
   if (!serverIp) {
     console.error("No server IP provided for socket connection");
     return null;
   }
 
   if (!socket) {
-    socket = io(`http://${serverIp}`);
-
-    socket.on("connect", () => {
-      console.log("Connected to socket server");
+    socket = io(serverIp, {
+      query: {
+        nickname,
+      },
     });
 
-    socket.on("disconnect", () => {
-      console.log("Disconnected from socket server");
-    });
+    registerAllSocketListeners(socket);
   }
 
   return socket;
 };
-
-export const getSocket = () => socket;
 
 export const disconnectSocket = () => {
   if (socket) {

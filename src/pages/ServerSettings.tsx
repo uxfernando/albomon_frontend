@@ -27,7 +27,7 @@ function ServerSettingsPage() {
           <div className="w-full flex flex-col gap-2">
             <div>
               <PixelInput
-                placeholder="eg: 198.0.0.100:8080"
+                placeholder="eg: http://198.0.0.100:8080"
                 className={`${error ? "border-red-500 animate-shake" : ""}`}
                 value={inputValue}
                 onChange={handleChange}

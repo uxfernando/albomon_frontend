@@ -1,29 +1,31 @@
 /**
- * Limpia una URL o IP ingresada por el usuario para dejar solo la IP y el puerto.
- * Remueve protocolos (http://, https://) y rutas adicionales.
+ * Limpia una URL ingresada por el usuario para dejar solo el protocolo, IP y el puerto.
+ * Remueve rutas adicionales o slashes al final.
  */
 export const cleanServerIp = (input: string): string => {
   if (!input) return "";
 
-  // Remover protocolo
-  let cleaned = input.replace(/^https?:\/\//i, "");
-
-  // Remover cualquier path al final (ej. /api o /)
-  cleaned = cleaned.split("/")[0];
-
-  return cleaned;
+  // Si tiene un slash al final después del puerto o dominio, quitamos el path
+  // Ejemplo: http://192.168.1.1:8080/api -> http://192.168.1.1:8080
+  try {
+    const url = new URL(input);
+    return `${url.protocol}//${url.host}`;
+  } catch (e) {
+    // Si no es una URL parseable aún (ej. el usuario apenas está escribiendo "http://")
+    // regresamos el string limpio de espacios.
+    return input.trim();
+  }
 };
 
 /**
- * Valida si una cadena tiene el formato de una IP válida (IPv4) con o sin puerto.
- * Ejemplos válidos: "192.168.1.1", "127.0.0.1:8080"
+ * Valida si una cadena tiene el formato de una URL válida que incluye http/https y una IP/localhost con o sin puerto.
+ * Ejemplos válidos: "http://192.168.1.1", "https://127.0.0.1:8080", "http://localhost:3000"
  */
 export const isValidServerIp = (ip: string): boolean => {
-  // Regex para IPv4 con puerto opcional
-  const ipRegex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(?::\d{1,5})?$/;
-  
-  // También podríamos permitir 'localhost' con o sin puerto
-  const localhostRegex = /^localhost(?::\d{1,5})?$/;
+  // Regex que exige explícitamente http:// o https:// al inicio,
+  // seguido de IPv4 o 'localhost' y opcionalmente un puerto.
+  const urlRegex =
+    /^https?:\/\/(?:(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|localhost)(?::\d{1,5})?$/;
 
-  return ipRegex.test(ip) || localhostRegex.test(ip);
+  return urlRegex.test(ip);
 };
