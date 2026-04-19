@@ -2,7 +2,7 @@ import { useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSessionStore } from "@/store/useSessionStore";
 import { cleanServerIp, isValidServerIp } from "@/utils/ip";
-import { setServerIpToClient } from "@/api/client";
+import { setServerIpToClient } from "@/clients/http";
 import { checkServerHealth } from "@/api/health";
 import { ROUTES } from "@/constants/routes";
 

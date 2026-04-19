@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSessionStore } from "@/store/useSessionStore";
-import { setServerIpToClient } from "@/api/client";
+import { setServerIpToClient } from "@/clients/http";
 import { checkServerHealth } from "@/api/health";
 
 export const useAppStartup = () => {

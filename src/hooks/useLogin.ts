@@ -18,7 +18,7 @@ export const useLogin = () => {
 
   useEffect(() => {
     if (nickname) {
-      navigate(ROUTES.START_BATTLE);
+      navigate(ROUTES.WAITING_OPPONENT);
     }
   }, [nickname, navigate]);
 
@@ -46,8 +46,7 @@ export const useLogin = () => {
     }
 
     setNickname(inputValue);
-    // Redirigimos a la vista inicial de batalla después de guardar
-    navigate(ROUTES.START_BATTLE);
+    navigate(ROUTES.WAITING_OPPONENT);
   };
 
   return {

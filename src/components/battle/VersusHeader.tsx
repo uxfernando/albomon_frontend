@@ -2,11 +2,13 @@ import { HTMLAttributes } from "react";
 import AvailablePokeball from "./AvailablePokeball";
 
 interface VersusHeaderProps extends HTMLAttributes<HTMLDivElement> {
-  waiting?: boolean;
+  nickname: string;
+  waitingOpponent?: boolean;
 }
 
 const VersusHeader: React.FC<VersusHeaderProps> = ({
-  waiting = true,
+  nickname,
+  waitingOpponent = true,
   ...props
 }) => {
   return (
@@ -15,7 +17,7 @@ const VersusHeader: React.FC<VersusHeaderProps> = ({
       className="z-10 text-white relative flex justify-between pt-6 px-6"
     >
       <div className="">
-        <div className="font-press-start text-sm mb-2">Entrenador 1</div>
+        <div className="font-press-start text-sm mb-2">{nickname}</div>
         <div className="flex items-center gap-2">
           <AvailablePokeball isDefeated={false} />
           <AvailablePokeball isDefeated={false} />
@@ -26,7 +28,7 @@ const VersusHeader: React.FC<VersusHeaderProps> = ({
         VS
       </div>
       <div className="text-right">
-        {waiting ? (
+        {waitingOpponent ? (
           <div className="font-press-start text-sm mb-2">
             Esperando oponente...
           </div>
