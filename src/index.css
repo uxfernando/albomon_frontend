@@ -2,15 +2,15 @@
 
 @theme {
   --font-vt323: "VT323", monospace;
-  --font-size-base: 24px;
-
-  --color-zinc-900: #131320;
+  --font-press-start: "Press Start 2P", cursive;
+  --font-size-base: 22px;
 }
 
 body {
-  font-family: var(--font-vt323);
+  background: black;
   font-size: var(--font-size-base);
-  line-height: 1.3;
+  font-family: var(--font-vt323);
+  line-height: 1;
 }
 
 .animate-shake {

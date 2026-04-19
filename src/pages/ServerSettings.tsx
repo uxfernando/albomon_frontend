@@ -1,33 +1,27 @@
-import AlbomonLogo from "@/assets/albomon-logo.png";
 import PixelButton from "@/components/ui/PixelButton/PixelButton";
 import PixelInput from "@/components/ui/PixelInput/PixelInput";
 
-function LoginPage() {
+function ServerSettingsPage() {
   return (
     <div className="bg-zinc-950/80 h-full flex justify-center items-center">
       <div className="py-12 px-10 bg-white rounded-md w-120 h-fit flex flex-col items-center text-center">
-        <img src={AlbomonLogo} alt="Albomon Logo" className="w-full max-w-30" />
-
-        <div className="mt-6 mb-12">
+        <div className="mb-6">
           <h1 className="font-press-start text-sm text-zinc-900 mb-2">
-            Prepárate para el combate
+            Configurar tu servidor
           </h1>
           <p className="text-zinc-400">
-            Cada entrenador comienza con un nombre… y termina con una historia
-            que otros recuerdan.
+            Cada batalla es un mundo diferente. Configura tu servidor para
+            comenzar la batalla.
           </p>
         </div>
 
         <div className="w-full">
-          <PixelInput
-            placeholder="Escribe tu nombre de entrenador..."
-            className="mb-2"
-          />
-          <PixelButton>Comenzar aventura</PixelButton>
+          <PixelInput placeholder="eg: 198.0.0.100:8080" className="mb-2" />
+          <PixelButton>Configurar servidor</PixelButton>
         </div>
       </div>
     </div>
   );
 }
 
-export default LoginPage;
+export default ServerSettingsPage;

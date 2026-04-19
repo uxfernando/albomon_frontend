@@ -1,26 +1,23 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-// Layouts
-import MainLayout from "../layouts/MainLayout";
+import BackgroundLayout from "@/layouts/BackgrounLayout";
 
-// Pages
-import Login from "../pages/Login";
-import BattleOver from "../pages/BattleOver";
-import BattleLobby from "../pages/BattleLobby";
-import WaitingBattle from "../pages/WaitingBattle";
-import IPConfigMiddleware from "../pages/middlewares/IPConfig";
-
-//Middlewares
+import LoginPage from "@/pages/Login";
+import ServerSettingsPage from "@/pages/ServerSettings";
+import StartBattlePage from "@/pages/StartBattle";
+import WaitingOpponentPage from "@/pages/WaitingOpponent";
+import BattlePage from "@/pages/Battle";
 
 function AppRouter() {
   return (
     <Router>
       <Routes>
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<Login />} />
-          <Route path="/battle-over" element={<BattleOver />} />
-          <Route path="/battle-lobby" element={<BattleLobby />} />
-          <Route path="/waiting-battle" element={<WaitingBattle />} />
+        <Route element={<BackgroundLayout />}>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/server-settings" element={<ServerSettingsPage />} />
+          <Route path="/start-battle" element={<StartBattlePage />} />
+          <Route path="/waiting-opponent" element={<WaitingOpponentPage />} />
+          <Route path="/battle" element={<BattlePage />} />
         </Route>
       </Routes>
     </Router>
