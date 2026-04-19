@@ -7,6 +7,8 @@ import ServerSettingsPage from "@/pages/ServerSettings";
 import StartBattlePage from "@/pages/StartBattle";
 import WaitingOpponentPage from "@/pages/WaitingOpponent";
 import BattlePage from "@/pages/Battle";
+import VictoryPage from "@/pages/Victory";
+import DefeatPage from "@/pages/Defeat";
 
 function AppRouter() {
   return (
@@ -18,6 +20,8 @@ function AppRouter() {
           <Route path="/start-battle" element={<StartBattlePage />} />
           <Route path="/waiting-opponent" element={<WaitingOpponentPage />} />
           <Route path="/battle" element={<BattlePage />} />
+          <Route path="/victory" element={<VictoryPage />} />
+          <Route path="/defeat" element={<DefeatPage />} />
         </Route>
       </Routes>
     </Router>
