@@ -1,5 +1,5 @@
-import PokeballAvailable from "@/assets/pokeball-available.png";
-import PokeballDefeated from "@/assets/pokeball-defeated.png";
+import PokeballAvailable from "@/assets/ui/pokeball-available.png";
+import PokeballDefeated from "@/assets/ui/pokeball-defeated.png";
 
 interface AvailablePokeballProps extends React.HTMLAttributes<HTMLDivElement> {
   isDefeated?: boolean;

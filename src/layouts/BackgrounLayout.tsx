@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import ArenaBackground from "@/assets/arena-background.png";
+import ArenaBackground from "@/assets/backgrounds/arena-background.png";
 
 function BackgroundLayout() {
   return (

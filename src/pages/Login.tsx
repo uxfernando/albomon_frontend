@@ -1,4 +1,4 @@
-import AlbomonLogo from "@/assets/albomon-logo.png";
+import AlbomonLogo from "@/assets/ui/albomon-logo.png";
 import PixelButton from "@/components/ui/PixelButton/PixelButton";
 import PixelInput from "@/components/ui/PixelInput/PixelInput";
 

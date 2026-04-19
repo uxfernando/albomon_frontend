@@ -1,5 +1,5 @@
-import AshVictory from "@/assets/ash-victory.png";
-import PikachuVictory from "@/assets/pikachu-victory.gif";
+import AshVictory from "@/assets/characters/ash-victory.png";
+import PikachuVictory from "@/assets/pokemons/pikachu-victory.gif";
 
 function VictoryPage() {
   return (

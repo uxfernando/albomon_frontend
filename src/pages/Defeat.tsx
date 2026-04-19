@@ -1,5 +1,5 @@
-import SnorlaxDefeat from "@/assets/snorlax-defeat.gif";
-import Sleep from "@/assets/sleep.gif";
+import SnorlaxDefeat from "@/assets/pokemons/snorlax-defeat.gif";
+import Sleep from "@/assets/pokemons/sleep.gif";
 
 function DefeatPage() {
   return (
