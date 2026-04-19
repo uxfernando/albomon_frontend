@@ -1,7 +1,12 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSessionStore } from "@/store/useSessionStore";
-import { cleanNickname, isValidNickname, MAX_NICKNAME_LENGTH } from "@/utils/nickname";
+import {
+  cleanNickname,
+  isValidNickname,
+  MAX_NICKNAME_LENGTH,
+} from "@/utils/nickname";
+import { ROUTES } from "@/constants/routes";
 
 export const useLogin = () => {
   const navigate = useNavigate();
@@ -10,6 +15,12 @@ export const useLogin = () => {
 
   const [inputValue, setInputValue] = useState(nickname);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (nickname) {
+      navigate(ROUTES.START_BATTLE);
+    }
+  }, [nickname, navigate]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
@@ -28,13 +39,15 @@ export const useLogin = () => {
     }
 
     if (!isValidNickname(inputValue)) {
-      setError(`El nombre no es válido (máximo ${MAX_NICKNAME_LENGTH} caracteres).`);
+      setError(
+        `El nombre no es válido (máximo ${MAX_NICKNAME_LENGTH} caracteres).`,
+      );
       return;
     }
 
     setNickname(inputValue);
-    // Redirigir a la vista de batalla, asumiendo que ya pasó la validación de IP
-    navigate("/start-battle");
+    // Redirigimos a la vista inicial de batalla después de guardar
+    navigate(ROUTES.START_BATTLE);
   };
 
   return {

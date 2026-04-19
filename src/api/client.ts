@@ -1,15 +1,12 @@
 import axios from "axios";
 
-export const createApiClient = (ip: string) => {
-  const baseURL = `http://${ip}`;
+export const httpClient = axios.create({
+  timeout: 5000,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
-  const client = axios.create({
-    baseURL,
-    timeout: 5000,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  return client;
+export const setServerIpToClient = (ip: string) => {
+  httpClient.defaults.baseURL = `http://${ip}`;
 };

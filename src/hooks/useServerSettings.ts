@@ -2,7 +2,9 @@ import { useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSessionStore } from "@/store/useSessionStore";
 import { cleanServerIp, isValidServerIp } from "@/utils/ip";
-import { createApiClient } from "@/api/client";
+import { setServerIpToClient } from "@/api/client";
+import { checkServerHealth } from "@/api/health";
+import { ROUTES } from "@/constants/routes";
 
 export const useServerSettings = () => {
   const navigate = useNavigate();
@@ -39,11 +41,10 @@ export const useServerSettings = () => {
     setError(null);
 
     try {
-      const client = createApiClient(inputValue);
-      await client.get("/api/health/check");
-
+      setServerIpToClient(inputValue);
+      await checkServerHealth();
       setServerIp(inputValue);
-      navigate("/");
+      navigate(ROUTES.LOGIN);
     } catch (err) {
       setError("Verifica la IP y que el servidor esté activo.");
     } finally {
