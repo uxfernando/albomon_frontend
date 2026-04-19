@@ -1,8 +1,12 @@
 import AlbomonLogo from "@/assets/ui/albomon-logo.png";
 import PixelButton from "@/components/ui/PixelButton/PixelButton";
 import PixelInput from "@/components/ui/PixelInput/PixelInput";
+import { useLogin } from "@/hooks/useLogin";
 
 function LoginPage() {
+  const { inputValue, error, handleChange, handleSubmit, maxLength } =
+    useLogin();
+
   return (
     <div className="bg-zinc-950/80 h-full flex justify-center items-center">
       <div className="py-12 px-10 bg-white rounded-md w-120 h-fit flex flex-col items-center text-center">
@@ -18,12 +22,21 @@ function LoginPage() {
           </p>
         </div>
 
-        <div className="w-full">
-          <PixelInput
-            placeholder="Escribe tu nombre de entrenador..."
-            className="mb-2"
-          />
-          <PixelButton>Comenzar aventura</PixelButton>
+        <div className="w-full flex flex-col gap-2">
+          <div>
+            <PixelInput
+              placeholder="Escribe tu nombre de entrenador..."
+              className={error ? "border-red-500 animate-shake" : ""}
+              value={inputValue}
+              onChange={handleChange}
+              onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+              maxLength={maxLength}
+            />
+            {error && (
+              <p className="text-red-500 text-sm mt-1 text-center">{error}</p>
+            )}
+          </div>
+          <PixelButton onClick={handleSubmit}>Comenzar aventura</PixelButton>
         </div>
       </div>
     </div>
