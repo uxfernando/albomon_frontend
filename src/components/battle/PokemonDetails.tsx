@@ -14,10 +14,12 @@ const PokemonDetails = ({
   currentHealth,
   className = "",
   size = "medium",
+  ...props
 }: PokemonDetailsProps) => {
   return (
     <div
       className={`w-full flex flex-col gap-1.5 items-center justify-center ${className}`}
+      {...props}
     >
       <div
         className={`text-white font-press-start ${size === "small" ? "text-[10px]" : "text-sm"} text-center`}

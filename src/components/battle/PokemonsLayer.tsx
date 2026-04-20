@@ -1,8 +1,15 @@
+import {
+  usePlayerPokemonAppear,
+  usePlayerPokemonHealthAppear,
+} from "@/animations/PlayerPokemon";
 import PokemonDetails from "./PokemonDetails";
 import { usePokemon, usePokemonDamage } from "@/hooks/usePokemon";
 import { getPokemonStyles } from "@/utils/pokemonSize";
 
 const PokemonsLayer = () => {
+  const { played: pokemonPlayed } = usePlayerPokemonAppear();
+  const { played: healthPlayed } = usePlayerPokemonHealthAppear();
+
   const { currentActivePokemon, opponentActivePokemon } = usePokemon();
   const { playerDamage, opponentDamage } = usePokemonDamage();
 
@@ -22,13 +29,17 @@ const PokemonsLayer = () => {
         {currentActivePokemon && (
           <>
             <PokemonDetails
+              id="player-pokemon-health-bar"
               name={currentActivePokemon?.name || ""}
               health={currentActivePokemon?.hp || 0}
               currentHealth={currentActivePokemon?.currentHp || 0}
-              className="mb-3"
+              className={`mb-3 ${healthPlayed ? "opacity-100" : "opacity-0"}`}
               size="medium"
             />
-            <div className="relative w-full flex justify-center">
+            <div
+              id="player-pokemon"
+              className={`relative w-full flex justify-center ${pokemonPlayed ? "opacity-100" : "opacity-0"}`}
+            >
               <img
                 src={currentActivePokemon?.sprite || ""}
                 className={`object-cover w-full h-auto ${playerDamage !== null ? "animate-damage-player" : ""}`}
@@ -58,10 +69,11 @@ const PokemonsLayer = () => {
         {opponentActivePokemon && (
           <>
             <PokemonDetails
+              id="opponent-pokemon-health-bar"
               name={opponentActivePokemon?.name || ""}
               health={opponentActivePokemon?.hp || 0}
               currentHealth={opponentActivePokemon?.currentHp || 0}
-              className="mb-2"
+              className={`mb-2 ${healthPlayed ? "opacity-100" : "opacity-0"}`}
               size="small"
             />
             <div className="relative w-full flex justify-center">

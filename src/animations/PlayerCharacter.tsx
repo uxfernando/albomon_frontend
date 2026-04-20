@@ -1,28 +1,31 @@
 import { createTimeline } from "animejs";
 import { useAnimationStore } from "@/store/useAnimationStore";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 
 export const usePlayerAppear = () => {
-  const { markAsPlayed } = useAnimationStore.getState();
   const animationName = "player-character-appear";
   const played = useAnimationStore((state) => state.hasPlayed(animationName));
-
-  if (played) {
-    return {
-      played: true,
-    };
-  }
+  const markAsPlayed = useAnimationStore((state) => state.markAsPlayed);
+  const [characterAppear, setCharacterAppear] = useState(false);
+  const [pokeballAppear, setPokeballAppear] = useState(false);
+  const [lightningSpellAppear, setLightningSpellAppear] = useState(false);
 
   useLayoutEffect(() => {
-    const tl = createTimeline();
-    tl.set("#pokeball", {
-      opacity: 0,
+    if (played) return;
+
+    createTimeline({
+      onComplete: () => {
+        markAsPlayed(animationName);
+      },
     })
       .add("#player-character", {
         translateX: ["-100%", "0px"],
         opacity: [0, 1],
         duration: 800,
         easing: "easeOutQuad",
+        onComplete: () => {
+          setCharacterAppear(true);
+        },
       })
       .add("#pokeball", {
         opacity: 1,
@@ -81,6 +84,9 @@ export const usePlayerAppear = () => {
         },
         duration: 1200,
         easing: "easeInOutSine",
+        onComplete: () => {
+          setPokeballAppear(true);
+        },
       })
       .add("#pokeball", {
         keyframes: {
@@ -91,20 +97,37 @@ export const usePlayerAppear = () => {
           "80%": { rotate: "414deg" },
           "100%": { rotate: "420deg" },
         },
-        duration: 800,
+        loop: 1,
+        duration: 1200,
         easing: "easeInOutSine",
       })
+      .add(
+        "#lightning-spell",
+        {
+          opacity: 1,
+          duration: 500,
+          onComplete: () => {
+            setLightningSpellAppear(true);
+          },
+        },
+        "-=1200",
+      )
       .add("#pokeball", {
         opacity: 0,
-        delay: 200,
-        duration: 300,
-        complete: () => {
-          markAsPlayed(animationName);
-        },
+        duration: 500,
+      })
+      .set("#pokeball", {
+        opacity: 0,
+      })
+      .set("#lightning-spell", {
+        opacity: 0,
       });
-  }, []);
+  }, [played, markAsPlayed]);
 
   return {
-    played: Boolean(played),
+    played,
+    characterAppear,
+    pokeballAppear,
+    lightningSpellAppear,
   };
 };

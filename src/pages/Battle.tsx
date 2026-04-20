@@ -11,7 +11,7 @@ const BattlePage = () => {
     <div className="h-full">
       {/* <VersusHeader /> */}
       <BattleCharactersLayer />
-      {/* <PokemonsLayer /> */}
+      <PokemonsLayer />
       {/* <AttackLayer /> */}
     </div>
   );
