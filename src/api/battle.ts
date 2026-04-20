@@ -1,7 +1,7 @@
 import { httpClient } from "../clients/http";
 
-export const attack = async () => {
-  const response = await httpClient.get("/api/battle/attack");
+export const attack = async (nickname: string) => {
+  const response = await httpClient.post("/api/battle/attack", { nickname });
   return response.data;
 };
 

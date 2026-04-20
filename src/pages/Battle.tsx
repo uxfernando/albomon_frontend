@@ -9,7 +9,7 @@ const BattlePage = () => {
       <VersusHeader />
       <BattleCharactersLayer />
       <PokemonsLayer />
-      <AttackLayer isYourTurn={false} />
+      <AttackLayer />
     </div>
   );
 };

@@ -6,4 +6,5 @@ export interface IBattle {
   players: IPlayer[];
   status: BattleStatus;
   winner: string | null;
+  currentTurnPlayerId: string | null;
 }
