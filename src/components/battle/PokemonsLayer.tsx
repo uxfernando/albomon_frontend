@@ -1,18 +1,32 @@
 import PokemonDetails from "./PokemonDetails";
 import { usePokemon } from "@/hooks/usePokemon";
+import { getPokemonWidthPercent } from "@/utils/pokemonSize";
 
 const PokemonsLayer = () => {
   const { currentActivePokemon, opponentActivePokemon } = usePokemon();
+
+  const playerWidth = getPokemonWidthPercent(
+    currentActivePokemon?.id || 0,
+    false,
+  );
+  const opponentWidth = getPokemonWidthPercent(
+    opponentActivePokemon?.id || 0,
+    true,
+  );
+
   return (
     <div>
-      <div className="absolute bottom-[18%] left-[24%] w-[23%]">
+      <div
+        className="absolute bottom-[18%] left-[24%] flex flex-col items-center"
+        style={{ width: `${playerWidth}%` }}
+      >
         {currentActivePokemon && (
           <>
             <PokemonDetails
               name={currentActivePokemon?.name || ""}
               health={currentActivePokemon?.hp || 0}
               currentHealth={currentActivePokemon?.currentHp || 0}
-              className="mb-6"
+              className="mb-3"
               size="medium"
             />
             <img
@@ -24,7 +38,10 @@ const PokemonsLayer = () => {
         )}
       </div>
 
-      <div className="absolute bottom-[44%] right-[32%] w-[8%]">
+      <div
+        className="absolute bottom-[44%] right-[32%] flex flex-col items-center"
+        style={{ width: `${opponentWidth}%` }}
+      >
         {opponentActivePokemon && (
           <>
             <PokemonDetails
