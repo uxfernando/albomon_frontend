@@ -125,10 +125,13 @@ const POKEMON_CONFIGS: Record<number, PokemonConfig> = {
     },
   }, // Onix
   143: {
-    width: 24,
+    width: 26,
     playerConfig: {
       left: "20%",
       bottom: "14%",
+    },
+    opponentConfig: {
+      bottom: "36%",
     },
   }, // Snorlax
   149: {
