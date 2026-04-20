@@ -1,8 +1,11 @@
 import PixelButton from "@/components/ui/PixelButton/PixelButton";
+import { BattleStatus } from "@/enums/IBattle";
 import { useBattle } from "@/hooks/useBattle";
 
 const AttackLayer = () => {
-  const { isPlayerTurn, handleAttack } = useBattle();
+  const { isPlayerTurn, handleAttack, status } = useBattle();
+
+  if (status === BattleStatus.Finished) return;
 
   return (
     <div className="absolute bottom-[5%] right-[5%]">

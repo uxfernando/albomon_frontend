@@ -1,9 +1,10 @@
 import PokemonDetails from "./PokemonDetails";
-import { usePokemon } from "@/hooks/usePokemon";
+import { usePokemon, usePokemonDamage } from "@/hooks/usePokemon";
 import { getPokemonStyles } from "@/utils/pokemonSize";
 
 const PokemonsLayer = () => {
   const { currentActivePokemon, opponentActivePokemon } = usePokemon();
+  const { playerDamage, opponentDamage } = usePokemonDamage();
 
   const playerStyles = getPokemonStyles(currentActivePokemon?.id || 0, false);
   const opponentStyles = getPokemonStyles(opponentActivePokemon?.id || 0, true);
@@ -27,20 +28,27 @@ const PokemonsLayer = () => {
               className="mb-3"
               size="medium"
             />
-            <img
-              src={currentActivePokemon?.sprite || ""}
-              className="object-cover w-full h-auto"
-              alt={currentActivePokemon?.name || ""}
-              style={{
-                transform: `scaleX(-1) translateX(${playerStyles.translateX}%) translateY(${playerStyles.translateY}%)`,
-              }}
-            />
+            <div className="relative w-full flex justify-center">
+              <img
+                src={currentActivePokemon?.sprite || ""}
+                className={`object-cover w-full h-auto ${playerDamage !== null ? "animate-damage-player" : ""}`}
+                alt={currentActivePokemon?.name || ""}
+                style={{
+                  transform: `scaleX(-1) translateX(${playerStyles.translateX}%) translateY(${playerStyles.translateY}%)`,
+                }}
+              />
+              {playerDamage !== null && (
+                <span className=" damage-text absolute top-[20%] text-red-500 font-bold text-4xl z-10 pointer-events-none">
+                  -{playerDamage}HP
+                </span>
+              )}
+            </div>
           </>
         )}
       </div>
 
       <div
-        className="absolute  flex flex-col items-center"
+        className="absolute flex flex-col items-center"
         style={{
           width: opponentStyles.width,
           right: opponentStyles.right,
@@ -56,14 +64,21 @@ const PokemonsLayer = () => {
               className="mb-2"
               size="small"
             />
-            <img
-              src={opponentActivePokemon?.sprite || ""}
-              className="object-cover w-full h-auto"
-              alt={opponentActivePokemon?.name || ""}
-              style={{
-                transform: `translateX(${opponentStyles.translateX}%) translateY(${opponentStyles.translateY}%)`,
-              }}
-            />
+            <div className="relative w-full flex justify-center">
+              <img
+                src={opponentActivePokemon?.sprite || ""}
+                className={`object-cover w-full h-auto ${opponentDamage !== null ? "animate-damage-opponent" : ""}`}
+                alt={opponentActivePokemon?.name || ""}
+                style={{
+                  transform: `translateX(${opponentStyles.translateX}%) translateY(${opponentStyles.translateY}%)`,
+                }}
+              />
+              {opponentDamage !== null && (
+                <span className=" damage-text absolute top-[20%] text-red-500 font-bold text-3xl z-10 pointer-events-none">
+                  -{opponentDamage}HP
+                </span>
+              )}
+            </div>
           </>
         )}
       </div>

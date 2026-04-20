@@ -8,3 +8,9 @@ export interface IBattle {
   winner: string | null;
   currentTurnPlayerId: string | null;
 }
+
+export interface BattleTurnResult {
+  damageDealt: number;
+  attacker: string;
+  defender: string;
+}

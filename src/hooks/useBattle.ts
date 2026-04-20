@@ -8,6 +8,7 @@ import { attack } from "@/api/battle";
 
 export const useBattle = () => {
   const nickname = useSessionStore((state) => state.nickname);
+  const status = useBattleStore((state) => state.status);
   const battlePlayers = useBattleStore((state) => state.players);
   const currentTurnPlayerId = useBattleStore(
     (state) => state.currentTurnPlayerId,
@@ -36,6 +37,7 @@ export const useBattle = () => {
 
   return {
     nickname,
+    status,
     players,
     isPlayerTurn,
     handleAttack,

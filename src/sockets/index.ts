@@ -1,5 +1,5 @@
 import { Socket } from "socket.io-client";
-import { registerBaseListeners } from "./baseListeners";
+import { registerBaseListeners } from "./base";
 import { registerLobbyListeners } from "./Lobby";
 import { registerBattleListeners } from "./Battle";
 
