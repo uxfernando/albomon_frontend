@@ -24,7 +24,7 @@ interface PokemonConfig {
 }
 
 const POKEMON_CONFIGS: Record<number, PokemonConfig> = {
-  1: { width: 14 }, // Bulbasaur
+  1: { width: 12 }, // Bulbasaur
   2: {
     width: 24,
     playerConfig: {
@@ -38,7 +38,7 @@ const POKEMON_CONFIGS: Record<number, PokemonConfig> = {
     },
   }, // Venusaur
   4: {
-    width: 14,
+    width: 12,
     opponentConfig: {
       right: "34%",
     },
@@ -63,12 +63,12 @@ const POKEMON_CONFIGS: Record<number, PokemonConfig> = {
     },
     opponentConfig: { bottom: "34%", right: "25%", translateY: -15 },
   }, // Charizard
-  7: { width: 14 }, // Squirtle
+  7: { width: 12 }, // Squirtle
   8: { width: 18 }, // Wartortle
   9: { width: 24, playerConfig: { left: "22%", bottom: "14%" } },
   // Blastoise
   25: {
-    width: 14,
+    width: 12,
     playerConfig: {
       translateX: 18,
     },
@@ -159,7 +159,7 @@ const POKEMON_CONFIGS: Record<number, PokemonConfig> = {
   448: { width: 16 }, // Lucario
 };
 
-const MIN_WIDTH = 14;
+const MIN_WIDTH = 12;
 const MAX_WIDTH = 36;
 
 const PERSPECTIVE_RATIO = 0.6;

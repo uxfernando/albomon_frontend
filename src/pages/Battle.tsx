@@ -9,10 +9,10 @@ const BattlePage = () => {
 
   return (
     <div className="h-full">
-      {/* <VersusHeader /> */}
+      <VersusHeader />
       <BattleCharactersLayer />
       <PokemonsLayer />
-      {/* <AttackLayer /> */}
+      <AttackLayer />
     </div>
   );
 };

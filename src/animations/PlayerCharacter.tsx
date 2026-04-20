@@ -1,10 +1,12 @@
 import { createTimeline } from "animejs";
 import { useAnimationStore } from "@/store/useAnimationStore";
 import { useLayoutEffect, useState } from "react";
+import { ANIMATION_NAMES } from "@/constants/animations";
 
 export const usePlayerAppear = () => {
-  const animationName = "player-character-appear";
-  const played = useAnimationStore((state) => state.hasPlayed(animationName));
+  const played = useAnimationStore((state) =>
+    state.hasPlayed(ANIMATION_NAMES.PLAYER_CHARACTER_APPEAR),
+  );
   const markAsPlayed = useAnimationStore((state) => state.markAsPlayed);
   const [characterAppear, setCharacterAppear] = useState(false);
   const [pokeballAppear, setPokeballAppear] = useState(false);
@@ -15,7 +17,7 @@ export const usePlayerAppear = () => {
 
     createTimeline({
       onComplete: () => {
-        markAsPlayed(animationName);
+        markAsPlayed(ANIMATION_NAMES.PLAYER_CHARACTER_APPEAR);
       },
     })
       .add("#player-character", {
