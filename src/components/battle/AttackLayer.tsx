@@ -5,7 +5,7 @@ const AttackLayer = () => {
   const { isPlayerTurn, handleAttack } = useBattle();
 
   return (
-    <div className="absolute bottom-[10%] right-[10%]">
+    <div className="absolute bottom-[5%] right-[5%]">
       {isPlayerTurn ? (
         <PixelButton className="px-12" onClick={handleAttack}>
           Atacar al rival

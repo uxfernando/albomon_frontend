@@ -1,24 +1,22 @@
 import PokemonDetails from "./PokemonDetails";
 import { usePokemon } from "@/hooks/usePokemon";
-import { getPokemonWidthPercent } from "@/utils/pokemonSize";
+import { getPokemonStyles } from "@/utils/pokemonSize";
 
 const PokemonsLayer = () => {
   const { currentActivePokemon, opponentActivePokemon } = usePokemon();
 
-  const playerWidth = getPokemonWidthPercent(
-    currentActivePokemon?.id || 0,
-    false,
-  );
-  const opponentWidth = getPokemonWidthPercent(
-    opponentActivePokemon?.id || 0,
-    true,
-  );
+  const playerStyles = getPokemonStyles(currentActivePokemon?.id || 0, false);
+  const opponentStyles = getPokemonStyles(opponentActivePokemon?.id || 0, true);
 
   return (
     <div>
       <div
-        className="absolute bottom-[18%] left-[24%] flex flex-col items-center"
-        style={{ width: `${playerWidth}%` }}
+        className="absolute flex flex-col items-center"
+        style={{
+          width: playerStyles.width,
+          left: playerStyles.left,
+          bottom: playerStyles.bottom,
+        }}
       >
         {currentActivePokemon && (
           <>
@@ -31,16 +29,23 @@ const PokemonsLayer = () => {
             />
             <img
               src={currentActivePokemon?.sprite || ""}
-              className="object-cover w-full h-auto -scale-x-100"
+              className="object-cover w-full h-auto"
               alt={currentActivePokemon?.name || ""}
+              style={{
+                transform: `scaleX(-1) translateX(${playerStyles.translateX}%) translateY(${playerStyles.translateY}%)`,
+              }}
             />
           </>
         )}
       </div>
 
       <div
-        className="absolute bottom-[44%] right-[32%] flex flex-col items-center"
-        style={{ width: `${opponentWidth}%` }}
+        className="absolute  flex flex-col items-center"
+        style={{
+          width: opponentStyles.width,
+          right: opponentStyles.right,
+          bottom: opponentStyles.bottom,
+        }}
       >
         {opponentActivePokemon && (
           <>
@@ -55,6 +60,9 @@ const PokemonsLayer = () => {
               src={opponentActivePokemon?.sprite || ""}
               className="object-cover w-full h-auto"
               alt={opponentActivePokemon?.name || ""}
+              style={{
+                transform: `translateX(${opponentStyles.translateX}%) translateY(${opponentStyles.translateY}%)`,
+              }}
             />
           </>
         )}
