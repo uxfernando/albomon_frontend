@@ -1,10 +1,14 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 import { IPlayer, IPlayers } from "@/interfaces/IPlayer";
 import { BattleState, useBattleStore } from "@/store/useBattleStore";
 import { useSessionStore } from "@/store/useSessionStore";
 import { useShallow } from "zustand/shallow";
 import { attack } from "@/api/battle";
+import { eventBus } from "@/utils/eventBus";
+import { NotifierEvent } from "@/enums/INotifier";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "@/constants/routes";
 
 export const useBattle = () => {
   const nickname = useSessionStore((state) => state.nickname);
@@ -56,4 +60,23 @@ export const useBattlePlayers = (nickname: string): IPlayers => {
       return { current, opponent };
     }),
   );
+};
+
+export const useBattleEnd = () => {
+  const nickname = useSessionStore((state) => state.nickname);
+  const navigate = useNavigate();
+  const handleBattleEnd = (winnerId: string) => {
+    if (winnerId === nickname) {
+      navigate(ROUTES.VICTORY);
+    } else {
+      navigate(ROUTES.DEFEAT);
+    }
+  };
+
+  useEffect(() => {
+    eventBus.on(NotifierEvent.BATTLE_END, handleBattleEnd);
+    return () => {
+      eventBus.off(NotifierEvent.BATTLE_END, handleBattleEnd);
+    };
+  }, []);
 };

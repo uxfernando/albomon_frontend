@@ -13,6 +13,7 @@ export const registerBattleListeners = (socket: Socket) => {
   });
 
   socket.on(NotifierEvent.BATTLE_END, (winnerId: string) => {
+    console.log("Battle end", winnerId);
     eventBus.emit(NotifierEvent.BATTLE_END, winnerId);
   });
 };
