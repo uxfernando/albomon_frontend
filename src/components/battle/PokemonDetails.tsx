@@ -1,15 +1,37 @@
+import { HTMLAttributes } from "react";
 import PokemonHealthBar from "./PokemonHealthBar";
+interface PokemonDetailsProps extends HTMLAttributes<HTMLDivElement> {
+  name: string;
+  health: number;
+  currentHealth: number;
+  className?: string;
+  size?: "small" | "medium";
+}
 
-const PokemonDetails = ({ name, health, currentHealth, className = "" }) => {
+const PokemonDetails = ({
+  name,
+  health,
+  currentHealth,
+  className = "",
+  size = "medium",
+}: PokemonDetailsProps) => {
   return (
     <div
-      className={`w-full flex flex-col gap-2 items-center justify-center ${className}`}
+      className={`w-full flex flex-col gap-1.5 items-center justify-center ${className}`}
     >
-      <div className="text-white font-press-start text-sm text-center">
+      <div
+        className={`text-white font-press-start ${size === "small" ? "text-[10px]" : "text-sm"} text-center`}
+      >
         {name}
       </div>
-      <PokemonHealthBar health={health} currentHealth={currentHealth} />
-      <div className="text-white font-press-start text-sm">
+      <PokemonHealthBar
+        health={health}
+        currentHealth={currentHealth}
+        size={size}
+      />
+      <div
+        className={`text-white font-press-start ${size === "small" ? "text-[10px]" : "text-sm"} text-center`}
+      >
         {currentHealth}/{health}
       </div>
     </div>

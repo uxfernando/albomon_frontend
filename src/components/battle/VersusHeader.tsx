@@ -1,14 +1,11 @@
 import { HTMLAttributes } from "react";
 import AvailablePokeball from "./AvailablePokeball";
-import { IPlayers } from "@/interfaces/IPlayer";
 import { useVersusHeader } from "@/hooks/useVersusHeader";
 
-interface VersusHeaderProps extends HTMLAttributes<HTMLDivElement> {
-  players: IPlayers;
-}
+interface VersusHeaderProps extends HTMLAttributes<HTMLDivElement> {}
 
-const VersusHeader: React.FC<VersusHeaderProps> = ({ players, ...props }) => {
-  const { waitingOpponent } = useVersusHeader(players);
+const VersusHeader: React.FC<VersusHeaderProps> = ({ ...props }) => {
+  const { players, waitingOpponent } = useVersusHeader();
 
   return (
     <header
@@ -30,7 +27,7 @@ const VersusHeader: React.FC<VersusHeaderProps> = ({ players, ...props }) => {
           ))}
         </div>
       </div>
-      <div className="font-press-start text-4xl absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2">
+      <div className="font-press-start text-4xl absolute left-1/2 -translate-x-1/2">
         VS
       </div>
       <div className="text-right">

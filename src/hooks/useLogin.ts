@@ -52,7 +52,7 @@ export const useLogin = () => {
     try {
       await joinLobby(inputValue);
       setNickname(inputValue);
-    } catch (error) {
+    } catch (error: any) {
       if (error.response?.data?.error) {
         setError(error.response.data.error);
       }

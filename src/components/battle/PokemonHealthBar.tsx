@@ -1,4 +1,14 @@
-const PokemonHealthBar = ({ health = 100, currentHealth = 100 }) => {
+interface PokemonHealthBarProps {
+  health: number;
+  currentHealth: number;
+  size?: "small" | "medium";
+}
+
+const PokemonHealthBar = ({
+  health = 100,
+  currentHealth = 100,
+  size = "medium",
+}: PokemonHealthBarProps) => {
   const percentHealth = Math.max(
     0,
     Math.min(100, (currentHealth / health) * 100),
@@ -17,7 +27,7 @@ const PokemonHealthBar = ({ health = 100, currentHealth = 100 }) => {
 
   return (
     <div
-      className={`w-full max-w-50 h-2 ${backgroundColor} rounded-md overflow-hidden`}
+      className={`w-full max-w-50 ${size === "small" ? "h-1.5" : "h-2"} ${backgroundColor} rounded-md overflow-hidden`}
     >
       <div
         className={`h-full ${barColor} rounded-md transition-all duration-300`}

@@ -1,25 +1,15 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { setReady } from "@/api/lobby";
 import { assignPokemon } from "@/api/pokemon";
-import { IPlayer, IPlayers } from "@/interfaces/IPlayer";
-import { useBattleStore } from "@/store/useBattleStore";
 import { useSessionStore } from "@/store/useSessionStore";
+import { NotifierEvent } from "@/enums/INotifier";
+import { eventBus } from "@/utils/eventBus";
+import { useBattlePlayers } from "./useBattle";
 
 export const useWaitingOpponent = () => {
   const nickname = useSessionStore((state) => state.nickname);
-  const battlePlayers = useBattleStore((state) => state.players);
-
-  const players = useMemo<IPlayers>(() => {
-    const current = battlePlayers.find(
-      (player) => player.nickname === nickname,
-    ) as IPlayer;
-
-    const opponent = battlePlayers.find(
-      (player) => player.nickname !== nickname,
-    ) as IPlayer | undefined;
-
-    return { current, opponent };
-  }, [battlePlayers, nickname]);
+  const [startBattle, setStartBattle] = useState(false);
+  const players = useBattlePlayers(nickname);
 
   const showReadyButton =
     players.current?.isReady !== true &&
@@ -54,10 +44,22 @@ export const useWaitingOpponent = () => {
     }
   };
 
+  const handleBattleStart = () => {
+    setStartBattle(true);
+  };
+
+  useEffect(() => {
+    eventBus.on(NotifierEvent.BATTLE_START, handleBattleStart);
+    return () => {
+      eventBus.off(NotifierEvent.BATTLE_START, handleBattleStart);
+    };
+  }, []);
+
   return {
     nickname,
     showReadyButton,
-    players,
     handleReady,
+    startBattle,
+    players,
   };
 };

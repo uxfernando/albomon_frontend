@@ -6,7 +6,7 @@ import AttackLayer from "@/components/battle/AttackLayer";
 const BattlePage = () => {
   return (
     <div className="h-full">
-      <VersusHeader waiting={false} />
+      <VersusHeader />
       <BattleCharactersLayer />
       <PokemonsLayer />
       <AttackLayer isYourTurn={false} />

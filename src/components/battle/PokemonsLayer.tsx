@@ -1,30 +1,37 @@
 import PokemonDetails from "./PokemonDetails";
-import Bulbasaur from "@/assets/pokemons/bulbasaur.gif";
-import Ivysaur from "@/assets/pokemons/ivysaur.gif";
+import { usePokemon } from "@/hooks/usePokemon";
 
 const PokemonsLayer = () => {
+  const { currentActivePokemon, opponentActivePokemon } = usePokemon();
   return (
     <div>
       <div className="absolute bottom-[18%] left-[24%] w-[23%]">
         <PokemonDetails
-          name="Ivysaur"
-          health={80}
-          currentHealth={60}
+          name={currentActivePokemon?.name || ""}
+          health={currentActivePokemon?.hp || 0}
+          currentHealth={currentActivePokemon?.currentHp || 0}
           className="mb-6"
+          size="medium"
         />
         <img
-          src={Ivysaur}
+          src={currentActivePokemon?.sprite}
           className="object-cover w-full h-auto -scale-x-100"
-          alt="Ivysaur"
+          alt={currentActivePokemon?.name}
         />
       </div>
 
       <div className="absolute bottom-[44%] right-[32%] w-[8%]">
-        <PokemonDetails name="Bulbasaur" health={50} currentHealth={25} />
+        <PokemonDetails
+          name={opponentActivePokemon?.name || ""}
+          health={opponentActivePokemon?.hp || 0}
+          currentHealth={opponentActivePokemon?.currentHp || 0}
+          className="mb-2"
+          size="small"
+        />
         <img
-          src={Bulbasaur}
+          src={opponentActivePokemon?.sprite || ""}
           className="object-cover w-full h-auto"
-          alt="Bulbasaur"
+          alt={opponentActivePokemon?.name || ""}
         />
       </div>
     </div>
