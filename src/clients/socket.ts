@@ -1,16 +1,12 @@
 import { io, Socket } from "socket.io-client";
 import { registerAllSocketListeners } from "@/sockets";
+import { API_BASE_URL } from "@/config/api";
 
 export let socket: Socket | null = null;
 
-export const connectSocket = (serverIp: string, nickname: string) => {
-  if (!serverIp) {
-    console.error("No server IP provided for socket connection");
-    return null;
-  }
-
+export const connectSocket = (nickname: string) => {
   if (!socket) {
-    socket = io(serverIp, {
+    socket = io(API_BASE_URL, {
       query: {
         nickname,
       },
