@@ -1,4 +1,4 @@
-import VersusHeader from "@/components/battle/VersusHeader";
+import VersusLayer from "@/components/layers/VersusLayer";
 import PixelButton from "@/components/ui/PixelButton/PixelButton";
 import { ROUTES } from "@/constants/routes";
 import { useWaitingOpponent } from "@/hooks/useWaitingOpponent";
@@ -19,7 +19,7 @@ function WaitingOpponentPage() {
 
   return (
     <div className="bg-zinc-950/80 h-full flex flex-col justify-between pb-10">
-      <VersusHeader />
+      <VersusLayer />
       <div className="mx-auto w-full max-w-100">
         {showReadyButton && (
           <PixelButton onClick={handleReady}>Estoy listo</PixelButton>

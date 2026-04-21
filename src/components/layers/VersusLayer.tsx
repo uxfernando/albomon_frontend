@@ -1,10 +1,10 @@
 import { HTMLAttributes } from "react";
-import AvailablePokeball from "./AvailablePokeball";
+import AvailablePokeball from "./../battle/AvailablePokeball";
 import { useVersusHeader } from "@/hooks/useVersusHeader";
 
-interface VersusHeaderProps extends HTMLAttributes<HTMLDivElement> {}
+interface VersusLayerProps extends HTMLAttributes<HTMLDivElement> {}
 
-const VersusHeader: React.FC<VersusHeaderProps> = ({ ...props }) => {
+const VersusLayer: React.FC<VersusLayerProps> = ({ ...props }) => {
   const { players, waitingOpponent } = useVersusHeader();
 
   return (
@@ -55,4 +55,4 @@ const VersusHeader: React.FC<VersusHeaderProps> = ({ ...props }) => {
   );
 };
 
-export default VersusHeader;
+export default VersusLayer;

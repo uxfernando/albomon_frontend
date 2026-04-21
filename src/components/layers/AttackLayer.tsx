@@ -1,11 +1,21 @@
 import PixelButton from "@/components/ui/PixelButton/PixelButton";
+import { ANIMATION_NAMES } from "@/constants/animations";
 import { BattleStatus } from "@/enums/IBattle";
 import { useBattle } from "@/hooks/useBattle";
+import { useAnimationStore } from "@/store/useAnimationStore";
 
 const AttackLayer = () => {
+  const playerThrowPokeballPlayed = useAnimationStore((state) =>
+    state.hasPlayed(ANIMATION_NAMES.PLAYER_THROW_POKEBALL),
+  );
+  const opponentThrowPokeballPlayed = useAnimationStore((state) =>
+    state.hasPlayed(ANIMATION_NAMES.OPPONENT_THROW_POKEBALL),
+  );
+
   const { isPlayerTurn, handleAttack, status } = useBattle();
 
   if (status === BattleStatus.Finished) return;
+  if (!playerThrowPokeballPlayed || !opponentThrowPokeballPlayed) return;
 
   return (
     <div className={`absolute bottom-[5%] right-[5%]`}>

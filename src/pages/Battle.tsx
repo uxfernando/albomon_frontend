@@ -1,7 +1,7 @@
-import VersusHeader from "@/components/battle/VersusHeader";
+import VersusLayer from "@/components/layers/VersusLayer";
 import Players from "@/components/battle/Players";
 import Pokemons from "@/components/battle/Pokemons";
-import AttackLayer from "@/components/battle/AttackLayer";
+import AttackLayer from "@/components/layers/AttackLayer";
 import { useBattleEnd } from "@/hooks/useBattle";
 
 const BattlePage = () => {
@@ -9,10 +9,10 @@ const BattlePage = () => {
 
   return (
     <div className="h-full">
-      <VersusHeader />
+      <VersusLayer />
       <Players />
       <Pokemons />
-      {/* <AttackLayer /> */}
+      <AttackLayer />
     </div>
   );
 };
