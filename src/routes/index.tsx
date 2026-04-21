@@ -9,7 +9,13 @@ import BattlePage from "@/pages/Battle";
 import VictoryPage from "@/pages/Victory";
 import DefeatPage from "@/pages/Defeat";
 
-import { RequireServerIp, RequireNickname } from "./guards";
+import {
+  RequireServerIp,
+  RequireNickname,
+  RequireFinishedStatus,
+  RequireBattleStatus,
+  RequireWaitingStatus,
+} from "./guards";
 import { ROUTES } from "@/constants/routes";
 
 function AppRouter() {
@@ -26,13 +32,20 @@ function AppRouter() {
             <Route path={ROUTES.LOGIN} element={<LoginPage />} />
 
             <Route element={<RequireNickname />}>
-              <Route
-                path={ROUTES.WAITING_OPPONENT}
-                element={<WaitingOpponentPage />}
-              />
-              <Route path={ROUTES.BATTLE} element={<BattlePage />} />
-              <Route path={ROUTES.VICTORY} element={<VictoryPage />} />
-              <Route path={ROUTES.DEFEAT} element={<DefeatPage />} />
+              <Route element={<RequireWaitingStatus />}>
+                <Route
+                  path={ROUTES.WAITING_OPPONENT}
+                  element={<WaitingOpponentPage />}
+                />
+              </Route>
+              <Route element={<RequireBattleStatus />}>
+                <Route path={ROUTES.BATTLE} element={<BattlePage />} />
+              </Route>
+
+              <Route element={<RequireFinishedStatus />}>
+                <Route path={ROUTES.VICTORY} element={<VictoryPage />} />
+                <Route path={ROUTES.DEFEAT} element={<DefeatPage />} />
+              </Route>
             </Route>
           </Route>
         </Route>

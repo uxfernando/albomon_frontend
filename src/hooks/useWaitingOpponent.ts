@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { setReady } from "@/api/lobby";
 import { assignPokemon } from "@/api/pokemon";
 import { useSessionStore } from "@/store/useSessionStore";
@@ -8,7 +8,6 @@ import { useBattlePlayers } from "./useBattle";
 
 export const useWaitingOpponent = () => {
   const nickname = useSessionStore((state) => state.nickname);
-  const [startBattle, setStartBattle] = useState(false);
   const players = useBattlePlayers(nickname);
 
   const showReadyButton =
@@ -45,7 +44,7 @@ export const useWaitingOpponent = () => {
   };
 
   const handleBattleStart = () => {
-    setStartBattle(true);
+    // NOTE: Navigation is handled in Guards after lobby_status update battle store
   };
 
   useEffect(() => {
@@ -59,7 +58,6 @@ export const useWaitingOpponent = () => {
     nickname,
     showReadyButton,
     handleReady,
-    startBattle,
     players,
   };
 };

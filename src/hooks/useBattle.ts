@@ -7,8 +7,6 @@ import { useShallow } from "zustand/shallow";
 import { attack } from "@/api/battle";
 import { eventBus } from "@/utils/eventBus";
 import { NotifierEvent } from "@/enums/INotifier";
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@/constants/routes";
 
 export const useBattle = () => {
   const nickname = useSessionStore((state) => state.nickname);
@@ -63,14 +61,8 @@ export const useBattlePlayers = (nickname: string): IPlayers => {
 };
 
 export const useBattleEnd = () => {
-  const nickname = useSessionStore((state) => state.nickname);
-  const navigate = useNavigate();
   const handleBattleEnd = (winnerId: string) => {
-    if (winnerId === nickname) {
-      navigate(ROUTES.VICTORY);
-    } else {
-      navigate(ROUTES.DEFEAT);
-    }
+    // NOTE: Navigation is handled in Guards after lobby_status update battle store
   };
 
   useEffect(() => {

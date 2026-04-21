@@ -1,21 +1,9 @@
 import VersusLayer from "@/components/layers/Versus";
 import PixelButton from "@/components/ui/PixelButton/PixelButton";
-import { ROUTES } from "@/constants/routes";
 import { useWaitingOpponent } from "@/hooks/useWaitingOpponent";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 function WaitingOpponentPage() {
-  const { showReadyButton, players, handleReady, startBattle } =
-    useWaitingOpponent();
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (startBattle) {
-      navigate(ROUTES.BATTLE);
-    }
-  }, [startBattle, navigate]);
+  const { showReadyButton, players, handleReady } = useWaitingOpponent();
 
   return (
     <div className="bg-zinc-950/80 h-full flex flex-col justify-between pb-10">

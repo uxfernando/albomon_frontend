@@ -5,7 +5,7 @@ export interface IBattle {
   id: string;
   players: IPlayer[];
   status: BattleStatus;
-  winner: string | null;
+  winnerId: string | null;
   currentTurnPlayerId: string | null;
 }
 

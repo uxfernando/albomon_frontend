@@ -15,7 +15,7 @@ export const useBattleStore = create<BattleState>()(
       id: "",
       players: [],
       status: BattleStatus.Waiting,
-      winner: null,
+      winnerId: null,
       currentTurnPlayerId: null,
       setBattle: (battle) => set({ ...battle }),
       getBattleStatus: () => get().status,
