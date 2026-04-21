@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import ArenaBackground from "@/assets/backgrounds/arena-background.png";
+import OpponentDisconnect from "@/components/modals/OpponentDisconnect";
 
 function BackgroundLayout() {
   return (
@@ -14,6 +15,7 @@ function BackgroundLayout() {
           <Outlet />
         </div>
       </div>
+      <OpponentDisconnect />
     </main>
   );
 }
