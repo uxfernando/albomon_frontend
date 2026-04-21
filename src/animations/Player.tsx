@@ -3,7 +3,7 @@ import { useAnimationStore } from "@/store/useAnimationStore";
 import { useLayoutEffect, useRef, useState } from "react";
 import { ANIMATION_NAMES } from "@/constants/animations";
 
-export const usePlayersAppear = () => {
+export const usePlayersAnimation = () => {
   const playerThrowPokeballPlayed = useAnimationStore((state) =>
     state.hasPlayed(ANIMATION_NAMES.PLAYER_THROW_POKEBALL),
   );
@@ -47,6 +47,8 @@ export const usePlayersAppear = () => {
   }, []);
 
   return {
+    playerThrowPokeballPlayed,
+    opponentThrowPokeballPlayed,
     playerPlayAnimation,
     opponentPlayAnimation,
     isPlayingPlayer,

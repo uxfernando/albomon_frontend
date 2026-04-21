@@ -16,7 +16,8 @@ const PlayerPokemon = ({ pokemon, damageDealt }: PlayerPokemonProps) => {
   const playerStyles = getPokemonStyles(pokemon?.id || 0, false);
   return (
     <div
-      className="absolute flex flex-col items-center"
+      id="player-pokemon"
+      className={`absolute flex flex-col items-center opacity-0`}
       style={{
         width: playerStyles.width,
         left: playerStyles.left,
@@ -32,10 +33,7 @@ const PlayerPokemon = ({ pokemon, damageDealt }: PlayerPokemonProps) => {
             className={`mb-3`}
             size="medium"
           />
-          <div
-            id="player-pokemon"
-            className={`relative w-full flex justify-center`}
-          >
+          <div className={`relative w-full flex justify-center`}>
             <img
               src={pokemon?.sprite || ""}
               className={`object-cover w-full h-auto ${damageDealt !== null ? "animate-damage-player" : ""}`}

@@ -1,9 +1,9 @@
 import PlayerLayer from "../layers/players/PlayerLayer";
 import OpponentLayer from "../layers/players/OpponentLayer";
-import { usePlayersAppear } from "@/animations/Player";
+import { usePlayersAnimation } from "@/animations/Player";
 
 const Players = () => {
-  const { isPlayingPlayer, isPlayingOpponent } = usePlayersAppear();
+  const { isPlayingPlayer, isPlayingOpponent } = usePlayersAnimation();
   return (
     <>
       <PlayerLayer isPlayingPlayer={isPlayingPlayer} />

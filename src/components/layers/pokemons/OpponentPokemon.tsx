@@ -16,7 +16,8 @@ const OpponentPokemon = ({ pokemon, damageDealt }: OpponentPokemonProps) => {
   const opponentStyles = getPokemonStyles(pokemon?.id || 0, true);
   return (
     <div
-      className="absolute flex flex-col items-center"
+      id="opponent-pokemon"
+      className={`absolute flex flex-col items-center opacity-0`}
       style={{
         width: opponentStyles.width,
         right: opponentStyles.right,
@@ -32,10 +33,7 @@ const OpponentPokemon = ({ pokemon, damageDealt }: OpponentPokemonProps) => {
             className={`mb-2`}
             size="small"
           />
-          <div
-            id="opponent-pokemon"
-            className="relative w-full flex justify-center"
-          >
+          <div className="relative w-full flex justify-center">
             <img
               src={pokemon?.sprite || ""}
               className={`object-cover w-full h-auto ${damageDealt !== null ? "animate-damage-opponent" : ""}`}
