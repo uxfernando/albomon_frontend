@@ -22,7 +22,7 @@ const PokemonDetails = ({
       {...props}
     >
       <div
-        className={`text-white font-press-start ${size === "small" ? "text-[10px]" : "text-sm"} text-center`}
+        className={`text-white font-press-start ${size === "small" ? "text-xxs md:text-xs" : "text-xs md:text-sm"} text-center`}
       >
         {name}
       </div>
@@ -32,7 +32,7 @@ const PokemonDetails = ({
         size={size}
       />
       <div
-        className={`text-white font-press-start ${size === "small" ? "text-[10px]" : "text-sm"} text-center`}
+        className={`text-white font-press-start ${size === "small" ? "text-xxs md:text-xs" : "text-xs md:text-sm"} text-center`}
       >
         {currentHealth}/{health}
       </div>

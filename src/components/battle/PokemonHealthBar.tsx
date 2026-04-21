@@ -27,7 +27,7 @@ const PokemonHealthBar = ({
 
   return (
     <div
-      className={`w-full max-w-50 ${size === "small" ? "h-1.5" : "h-2"} ${backgroundColor} rounded-md overflow-hidden`}
+      className={`w-full max-w-50 ${size === "small" ? "h-1 lg:h-2" : "h-1.5 lg:h-2.5"} ${backgroundColor} rounded-md overflow-hidden`}
     >
       <div
         className={`h-full ${barColor} rounded-md transition-all duration-300`}

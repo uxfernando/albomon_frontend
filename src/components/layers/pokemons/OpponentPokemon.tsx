@@ -43,7 +43,7 @@ const OpponentPokemon = ({ pokemon, damageDealt }: OpponentPokemonProps) => {
               }}
             />
             {damageDealt !== null && (
-              <span className=" damage-text absolute top-[20%] text-red-500 font-bold text-3xl z-10 pointer-events-none">
+              <span className=" damage-text absolute top-[20%] text-red-500 font-bold text-lg z-10 pointer-events-none">
                 -{damageDealt}HP
               </span>
             )}

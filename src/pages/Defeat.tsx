@@ -5,12 +5,14 @@ function DefeatPage() {
   return (
     <div className="h-full flex flex-col items-center ">
       <div className=" bg-linear-to-b from-zinc-950/90 via-zinc-950/20  to-zinc-950/90 h-full absolute w-full flex flex-col items-center ">
-        <div className="text-white max-w-150 text-center flex flex-col justify-center mt-[10%]">
+        <div className="text-white max-w-150 text-center flex flex-col justify-center mt-[5%]">
           <div className="mb-6">
-            <h1 className="font-press-start text-4xl mb-4">Derrota</h1>
-            <p>
+            <h1 className="font-press-start text-2xl md:text-4xl md:mb-4 lg:text-6xl">
+              Derrota
+            </h1>
+            <p className="md:text-sm lg:text-lg">
               No todos los enfrentamientos se ganan. Mejor suerte para la
-              próxima vez. No te desesperes, puedes volver a intentarlo.
+              próxima vez.
             </p>
           </div>
         </div>

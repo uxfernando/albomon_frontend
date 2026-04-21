@@ -10,9 +10,7 @@ function ServerSettingsPage() {
     <div className="bg-zinc-950/80 h-full flex justify-center items-center">
       <div className="py-12 px-10 bg-white rounded-md w-120 h-fit flex flex-col items-center text-center">
         <div className="mb-6">
-          <h1 className="font-press-start text-sm text-zinc-900 mb-2">
-            Configurar tu servidor
-          </h1>
+          <h1 className="text-sm text-zinc-900 mb-2">Configurar tu servidor</h1>
           <p className="text-zinc-400">
             Cada batalla es un mundo diferente. Configura tu servidor para
             comenzar el combate.
@@ -34,7 +32,9 @@ function ServerSettingsPage() {
                 onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
               />
               {error && (
-                <p className="text-red-500 text-sm mb-1 text-center">{error}</p>
+                <p className="text-red-500 text-xxs mt-2 text-center">
+                  {error}
+                </p>
               )}
             </div>
             <PixelButton onClick={handleSubmit}>

@@ -18,13 +18,13 @@ const AttackLayer = () => {
   if (!playerThrowPokeballPlayed || !opponentThrowPokeballPlayed) return;
 
   return (
-    <div className={`absolute bottom-[5%] right-[5%]`}>
+    <div className={`absolute bottom-[6%] right-[6%]`}>
       {isPlayerTurn ? (
         <PixelButton className="px-12" onClick={handleAttack}>
           Atacar al rival
         </PixelButton>
       ) : (
-        <div className="text-right text-white font-press-start text-sm max-w-88">
+        <div className="text-right text-white font-press-start text-xs max-w-88">
           <div>Es turno de tu oponente para atacar...</div>
         </div>
       )}

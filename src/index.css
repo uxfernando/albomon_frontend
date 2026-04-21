@@ -3,14 +3,16 @@
 @theme {
   --font-vt323: "VT323", monospace;
   --font-press-start: "Press Start 2P", cursive;
-  --font-size-base: 22px;
+  --font-size-base: 12px;
+
+  --text-xxs: 9px;
 }
 
 body {
   background: black;
   font-size: var(--font-size-base);
-  font-family: var(--font-vt323);
-  line-height: 1;
+  font-family: var(--font-press-start);
+  line-height: 1.5;
   user-select: none;
 }
 

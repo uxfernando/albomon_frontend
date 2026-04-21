@@ -12,13 +12,12 @@ function LoginPage() {
       <div className="py-12 px-10 bg-white rounded-md w-120 h-fit flex flex-col items-center text-center">
         <img src={AlbomonLogo} alt="Albomon Logo" className="w-full max-w-30" />
 
-        <div className="mt-6 mb-12">
+        <div className="mt-6 mb-6">
           <h1 className="font-press-start text-sm text-zinc-900 mb-2">
             Prepárate para el combate
           </h1>
           <p className="text-zinc-400">
-            Cada entrenador comienza con un nombre… y termina con una historia
-            que otros recuerdan.
+            Cada entrenador comienza con un nombre y termina con una historia.
           </p>
         </div>
 
@@ -33,7 +32,7 @@ function LoginPage() {
               maxLength={maxLength}
             />
             {error && (
-              <p className="text-red-500 text-sm mt-1 text-center">{error}</p>
+              <p className="text-red-500 text-xxs mt-2 text-center">{error}</p>
             )}
           </div>
           <PixelButton onClick={handleSubmit}>Comenzar aventura</PixelButton>
