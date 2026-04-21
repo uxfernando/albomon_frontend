@@ -1,7 +1,7 @@
-import VersusLayer from "@/components/layers/VersusLayer";
+import VersusLayer from "@/components/layers/Versus";
 import Players from "@/components/battle/Players";
 import Pokemons from "@/components/battle/Pokemons";
-import AttackLayer from "@/components/layers/AttackLayer";
+import AttackLayer from "@/components/layers/Attack";
 import { useBattleEnd } from "@/hooks/useBattle";
 
 const BattlePage = () => {

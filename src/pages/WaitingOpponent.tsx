@@ -1,4 +1,4 @@
-import VersusLayer from "@/components/layers/VersusLayer";
+import VersusLayer from "@/components/layers/Versus";
 import PixelButton from "@/components/ui/PixelButton/PixelButton";
 import { ROUTES } from "@/constants/routes";
 import { useWaitingOpponent } from "@/hooks/useWaitingOpponent";

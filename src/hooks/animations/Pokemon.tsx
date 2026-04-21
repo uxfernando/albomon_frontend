@@ -36,16 +36,11 @@ export const usePokemonAnimation = () => {
     opponentPokemonAppearPlayed,
   ]);
 
-  const initialPlayer = playerThrowPokeballPlayed && playerPokemonAppearPlayed;
-  const initialOpponent =
-    opponentThrowPokeballPlayed && opponentPokemonAppearPlayed;
   return {
     playerThrowPokeballPlayed,
     opponentThrowPokeballPlayed,
     playerPokemonAppearPlayed,
     opponentPokemonAppearPlayed,
-    initialPlayer,
-    initialOpponent,
   };
 };
 

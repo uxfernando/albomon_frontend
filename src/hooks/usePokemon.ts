@@ -1,6 +1,6 @@
 import { useSessionStore } from "@/store/useSessionStore";
 import { useBattlePlayers } from "./useBattle";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { IPokemon } from "@/interfaces/IPokemon";
 import { eventBus } from "@/utils/eventBus";
 import { NotifierEvent } from "@/enums/INotifier";
@@ -28,6 +28,16 @@ export const usePokemon = () => {
 
 export const usePokemonDamage = () => {
   const nickname = useSessionStore((state) => state.nickname);
+  const { currentActivePokemon, opponentActivePokemon } = usePokemon();
+
+  const activePokemonsRef = useRef({
+    currentActivePokemon,
+    opponentActivePokemon,
+  });
+
+  useEffect(() => {
+    activePokemonsRef.current = { currentActivePokemon, opponentActivePokemon };
+  }, [currentActivePokemon, opponentActivePokemon]);
 
   const [playerDamage, setPlayerDamage] = useState<number | null>(null);
   const [opponentDamage, setOpponentDamage] = useState<number | null>(null);
@@ -35,9 +45,17 @@ export const usePokemonDamage = () => {
   useEffect(() => {
     const handleTurnResult = (turnResult: BattleTurnResult) => {
       if (turnResult.defender === nickname) {
+        const hp =
+          activePokemonsRef.current.currentActivePokemon?.currentHp || 0;
+        if (hp - turnResult.damageDealt <= 0) return;
+
         setPlayerDamage(turnResult.damageDealt);
         setTimeout(() => setPlayerDamage(null), 1500);
       } else {
+        const hp =
+          activePokemonsRef.current.opponentActivePokemon?.currentHp || 0;
+        if (hp - turnResult.damageDealt <= 0) return;
+
         setOpponentDamage(turnResult.damageDealt);
         setTimeout(() => setOpponentDamage(null), 1500);
       }

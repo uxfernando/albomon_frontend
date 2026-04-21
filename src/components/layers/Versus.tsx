@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import AvailablePokeball from "./../battle/AvailablePokeball";
+import AvailablePokeball from "../battle/AvailablePokeball";
 import { useVersusHeader } from "@/hooks/useVersusHeader";
 
 interface VersusLayerProps extends HTMLAttributes<HTMLDivElement> {}
