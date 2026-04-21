@@ -22,11 +22,16 @@ export const useAppStartup = () => {
       if (nickname) {
         const { battle } = await getBattleDetails();
 
-        if (battle) {
-          useBattleStore.setState(battle);
+        if (
+          !battle ||
+          !battle.players.some((p: any) => p.nickname === nickname)
+        ) {
+          resetStorage();
+          return;
         }
 
-        connectSocket(nickname);
+        useBattleStore.setState(battle);
+        connectSocket(serverIp, nickname);
       }
     } catch (error) {
       resetStorage();

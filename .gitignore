@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .env
+.env.test
+.env.development
+.env.production

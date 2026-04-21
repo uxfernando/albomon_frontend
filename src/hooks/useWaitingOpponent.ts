@@ -17,6 +17,12 @@ export const useWaitingOpponent = () => {
   const hasAssignedPokemon = useRef(false);
 
   useEffect(() => {
+    if (players.current && players.current.pokemonTeam?.length === 0) {
+      hasAssignedPokemon.current = false;
+    }
+  }, [players.current?.pokemonTeam?.length]);
+
+  useEffect(() => {
     const assignPokemonTeam = async () => {
       if (
         nickname &&
