@@ -31,7 +31,7 @@ export const useAppStartup = () => {
         }
 
         useBattleStore.setState(battle);
-        connectSocket(serverIp, nickname);
+        connectSocket(nickname);
       }
     } catch (error) {
       resetStorage();
