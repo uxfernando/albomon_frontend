@@ -5,9 +5,11 @@ import { cleanServerIp, isValidServerIp } from "@/utils/ip";
 import { setServerIpToClient } from "@/clients/http";
 import { checkServerHealth } from "@/api/health";
 import { ROUTES } from "@/constants/routes";
+import { useAppReset } from "./useAppReset";
 
 export const useServerSettings = () => {
   const navigate = useNavigate();
+  const { resetStorage } = useAppReset();
   const serverIp = useSessionStore((state) => state.serverIp);
   const setServerIp = useSessionStore((state) => state.setServerIp);
 
@@ -45,6 +47,11 @@ export const useServerSettings = () => {
     try {
       setServerIpToClient(inputValue);
       await checkServerHealth();
+
+      if (serverIp && serverIp !== inputValue) {
+        resetStorage();
+      }
+
       setServerIp(inputValue);
       navigate(ROUTES.LOGIN);
     } catch (err) {

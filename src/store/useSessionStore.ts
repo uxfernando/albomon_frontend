@@ -8,15 +8,18 @@ interface SessionState extends ISession {
   clearSession: () => void;
 }
 
+const defaultSession = {
+  nickname: "",
+  serverIp: "",
+};
+
 export const useSessionStore = create<SessionState>()(
   persist(
     (set) => ({
-      nickname: "",
-      serverIp: "",
-
+      ...defaultSession,
       setNickname: (nickname) => set({ nickname }),
       setServerIp: (serverIp) => set({ serverIp }),
-      clearSession: () => set({ nickname: "", serverIp: "" }),
+      clearSession: () => set({ ...defaultSession }),
     }),
     {
       name: "session-store",

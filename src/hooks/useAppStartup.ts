@@ -4,8 +4,10 @@ import { setServerIpToClient } from "@/clients/http";
 import { connectSocket } from "@/clients/socket";
 import { getBattleDetails } from "@/api/battle";
 import { useBattleStore } from "@/store/useBattleStore";
+import { useAppReset } from "./useAppReset";
 
 export const useAppStartup = () => {
+  const { resetStorage } = useAppReset();
   const [isReady, setIsReady] = useState(false);
   const serverIp = useSessionStore((state) => state.serverIp);
   const nickname = useSessionStore((state) => state.nickname);
@@ -31,7 +33,7 @@ export const useAppStartup = () => {
         connectSocket(serverIp, nickname);
       }
     } catch (error) {
-      clearSession();
+      resetStorage();
     } finally {
       setIsReady(true);
     }

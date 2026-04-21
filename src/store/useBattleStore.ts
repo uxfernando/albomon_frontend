@@ -7,18 +7,24 @@ import { BattleStatus } from "@/enums/IBattle";
 export interface BattleState extends IBattle {
   setBattle: (battle: IBattle) => void;
   getBattleStatus: () => BattleStatus;
+  clearBattle: () => void;
 }
+
+const defaultBattle: IBattle = {
+  id: "",
+  players: [],
+  status: BattleStatus.Waiting,
+  winnerId: null,
+  currentTurnPlayerId: null,
+};
 
 export const useBattleStore = create<BattleState>()(
   persist(
     (set, get) => ({
-      id: "",
-      players: [],
-      status: BattleStatus.Waiting,
-      winnerId: null,
-      currentTurnPlayerId: null,
+      ...defaultBattle,
       setBattle: (battle) => set({ ...battle }),
       getBattleStatus: () => get().status,
+      clearBattle: () => set({ ...defaultBattle }),
     }),
     {
       name: "battle-store",
