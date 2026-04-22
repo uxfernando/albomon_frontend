@@ -4,9 +4,9 @@ import OpponentPokemon from "../layers/pokemons/OpponentPokemon";
 import { usePokemonAnimation } from "@/hooks/animations/Pokemon";
 
 const Pokemons = () => {
-  usePokemonAnimation();
-
   const { currentActivePokemon, opponentActivePokemon } = usePokemon();
+  usePokemonAnimation(currentActivePokemon, opponentActivePokemon);
+
   const { playerDamage, opponentDamage } = usePokemonDamage();
 
   return (

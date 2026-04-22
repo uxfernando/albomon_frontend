@@ -12,7 +12,7 @@ const PlayerPokemon = ({ pokemon, damageDealt }: PlayerPokemonProps) => {
   if (!pokemon) {
     return null;
   }
-
+  console.log(damageDealt);
   const playerStyles = getPokemonStyles(pokemon?.id || 0, false);
   return (
     <div
