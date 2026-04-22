@@ -1,15 +1,18 @@
 import AppRouter from "@/routes";
 import { useAppStartup } from "@/hooks/useAppStartup";
+import { useTabDetection } from "./hooks/useTabDetection";
+import TabDetection from "./components/modals/TabDetection";
+import Loading from "./components/modals/Loading";
 
 function App() {
+  const { isDuplicate } = useTabDetection();
   const { isReady } = useAppStartup();
 
+  if (isDuplicate) {
+    return <TabDetection />;
+  }
   if (!isReady) {
-    return (
-      <div className="bg-zinc-950 h-screen w-screen flex justify-center items-center text-white font-press-start text-xs">
-        Cargando servicios...
-      </div>
-    );
+    return <Loading />;
   }
 
   return <AppRouter />;

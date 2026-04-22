@@ -33,7 +33,7 @@ const OpponentDisconnect: React.FC = () => {
 
         <div className="mt-6 mb-6">
           <h1 className="font-press-start text-sm text-zinc-900 mb-2">
-            ¡Tu oponente huyó el enfrentamiento!
+            ¡Tu oponente huyó del enfrentamiento!
           </h1>
           <p className="text-zinc-400">
             El entrenador{" "}
