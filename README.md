@@ -1,7 +1,6 @@
-
 # Albomon Frontend
 
-[www.albomon.online](www.albomon.online)
+[albomon.online](https://albomon.online)
 
 Este servicio se encarga de la interfaz de usuario del juego, mostrando los enfrentamientos en tiempo real, el estado de los jugadores y la experiencia visual de cada batalla.
 
