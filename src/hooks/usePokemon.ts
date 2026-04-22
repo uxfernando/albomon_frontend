@@ -2,7 +2,7 @@ import { useSessionStore } from "@/store/useSessionStore";
 import { useBattlePlayers } from "./useBattle";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { eventBus } from "@/utils/eventBus";
-import { NotifierEvent } from "@/enums/INotifier";
+import { BusEvent, NotifierEvent } from "@/enums/INotifier";
 import { BattleTurnResult } from "@/interfaces/IBattle";
 import { ANIMATION_DURATION } from "@/constants/animations";
 
@@ -106,12 +106,16 @@ export const usePokemonDamage = () => {
 
         setPlayerDamage(turnResult.damageDealt);
 
+        if (hp - turnResult.damageDealt <= 0) {
+          eventBus.emit(BusEvent.POKEMON_DEFEAT, { player: "current" });
+
+          setTimeout(() => {
+            eventBus.emit(BusEvent.POKEMON_DIED, { player: "current" });
+          }, ANIMATION_DURATION.POKEMON_DAMAGE);
+        }
+
         setTimeout(() => {
           setPlayerDamage(null);
-
-          if (hp - turnResult.damageDealt <= 0) {
-            eventBus.emit("POKEMON_DIED", { player: "current" });
-          }
         }, ANIMATION_DURATION.POKEMON_DAMAGE);
       } else {
         const hp =
@@ -119,12 +123,15 @@ export const usePokemonDamage = () => {
 
         setOpponentDamage(turnResult.damageDealt);
 
+        if (hp - turnResult.damageDealt <= 0) {
+          eventBus.emit(BusEvent.POKEMON_DEFEAT, { player: "opponent" });
+          setTimeout(() => {
+            eventBus.emit(BusEvent.POKEMON_DIED, { player: "opponent" });
+          }, ANIMATION_DURATION.POKEMON_DAMAGE);
+        }
+
         setTimeout(() => {
           setOpponentDamage(null);
-
-          if (hp - turnResult.damageDealt <= 0) {
-            eventBus.emit("POKEMON_DIED", { player: "opponent" });
-          }
         }, ANIMATION_DURATION.POKEMON_DAMAGE);
       }
     };

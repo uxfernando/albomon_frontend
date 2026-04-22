@@ -2,6 +2,8 @@ import { createTimeline } from "animejs";
 import { useAnimationStore } from "@/store/useAnimationStore";
 import { useLayoutEffect, useRef, useState } from "react";
 import { ANIMATION_NAMES } from "@/constants/animations";
+import { eventBus } from "@/utils/eventBus";
+import { BusEvent } from "@/enums/INotifier";
 
 export const usePlayersAnimation = () => {
   const playerThrowPokeballPlayed = useAnimationStore((state) =>
@@ -46,11 +48,25 @@ export const usePlayersAnimation = () => {
     playAnimations();
   }, []);
 
+  useLayoutEffect(() => {
+    const handleThrowPokeball = (data: { player: string }) => {
+      if (data.player === "current") {
+        playerPlayAnimation();
+      } else {
+        opponentPlayAnimation();
+      }
+    };
+
+    eventBus.on(BusEvent.THROW_POKEBALL, handleThrowPokeball);
+
+    return () => {
+      eventBus.off(BusEvent.THROW_POKEBALL, handleThrowPokeball);
+    };
+  }, []);
+
   return {
     playerThrowPokeballPlayed,
     opponentThrowPokeballPlayed,
-    playerPlayAnimation,
-    opponentPlayAnimation,
     isPlayingPlayer,
     isPlayingOpponent,
   };

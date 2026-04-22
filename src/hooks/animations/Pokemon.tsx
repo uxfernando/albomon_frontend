@@ -5,6 +5,7 @@ import { useLayoutEffect, useState } from "react";
 import { eventBus } from "@/utils/eventBus";
 import { IPokemon } from "@/interfaces/IPokemon";
 import { useThrowOpponentPokeball, useThrowPlayerPokeball } from "./Player";
+import { BusEvent } from "@/enums/INotifier";
 
 export const usePokemonAnimation = (
   currentPokemon?: IPokemon,
@@ -72,22 +73,30 @@ export const usePokemonAnimation = (
         playPlayerPokemonDisappear();
 
         setTimeout(() => {
+          eventBus.emit(BusEvent.THROW_POKEBALL, data);
+        }, 800);
+
+        setTimeout(() => {
           resetPlayerPokemonAppear();
           setTimeout(() => playPlayerPokemonAppear(), 100);
-        }, 1000);
+        }, 4500);
       } else if (data.player === "opponent") {
         playOpponentPokemonDisappear();
 
         setTimeout(() => {
+          eventBus.emit(BusEvent.THROW_POKEBALL, data);
+        }, 1000);
+
+        setTimeout(() => {
           resetOpponentPokemonAppear();
           setTimeout(() => playOpponentPokemonAppear(), 100);
-        }, 1000);
+        }, 2000);
       }
     };
 
-    eventBus.on("POKEMON_DIED", handlePokemonDeath);
+    eventBus.on(BusEvent.POKEMON_DIED, handlePokemonDeath);
     return () => {
-      eventBus.off("POKEMON_DIED", handlePokemonDeath);
+      eventBus.off(BusEvent.POKEMON_DIED, handlePokemonDeath);
     };
   }, []);
 
