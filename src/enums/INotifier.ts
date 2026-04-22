@@ -6,3 +6,9 @@ export enum NotifierEvent {
 
   OPPONENT_DISCONNECT = "opponent_disconnect",
 }
+
+export enum BusEvent {
+  THROW_POKEBALL = "throw_pokeball",
+  POKEMON_DEFEAT = "pokemon_defeat",
+  POKEMON_DIED = "pokemon_died",
+}
