@@ -25,10 +25,6 @@ export const usePokemonAnimation = (
   const { playAnimation: playOpponentPokemonDisappear } =
     usePokemonDisappear("opponent-pokemon");
 
-  //   const { playAnimation: playPlayerThrowPokeball } = useThrowPlayerPokeball();
-  //   const { playAnimation: playOpponentThrowPokeball } =
-  //     useThrowOpponentPokeball();
-
   const playerThrowPokeballPlayed = useAnimationStore((state) =>
     state.hasPlayed(ANIMATION_NAMES.PLAYER_THROW_POKEBALL),
   );
@@ -66,7 +62,6 @@ export const usePokemonAnimation = (
     opponentPokemon,
   ]);
 
-  // Handle death animations
   useLayoutEffect(() => {
     const handlePokemonDeath = (data: { player: string }) => {
       if (data.player === "current") {
@@ -136,7 +131,6 @@ export const usePokemonAppear = (pokemonId: string) => {
       },
     });
 
-    // Appear: Primero el pokemon, después la barra
     tl.set(containerSelector, { opacity: 1 })
       .set(healthBarSelector, { opacity: 0 })
       .set(imageSelector, { opacity: 0 })
@@ -190,11 +184,10 @@ export const usePokemonDisappear = (pokemonId: string) => {
       onComplete: () => {
         setIsDisappeared(true);
         setIsPlaying(false);
-        resetAnimation(); // Reset state so it can be played again
+        resetAnimation();
       },
     });
 
-    // Disappear: Primero la barra, después el pokemon
     tl.add(healthBarSelector, {
       opacity: [1, 0],
       translateY: [0, -10],
