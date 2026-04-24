@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { IPlayer, IPlayers } from "@/interfaces/IPlayer";
 import { BattleState, useBattleStore } from "@/store/useBattleStore";
@@ -11,10 +11,12 @@ import { NotifierEvent } from "@/enums/INotifier";
 export const useBattle = () => {
   const nickname = useSessionStore((state) => state.nickname);
   const status = useBattleStore((state) => state.status);
+  const setBattle = useBattleStore((state) => state.setBattle);
   const battlePlayers = useBattleStore((state) => state.players);
   const currentTurnPlayerId = useBattleStore(
     (state) => state.currentTurnPlayerId,
   );
+  const [isPlayerAttacking, setIsPlayerAttacking] = useState(false);
   const isPlayerTurn = currentTurnPlayerId === nickname;
 
   const players = useMemo<IPlayers>(() => {
@@ -31,9 +33,13 @@ export const useBattle = () => {
 
   const handleAttack = async () => {
     try {
-      await attack(nickname);
+      setIsPlayerAttacking(true);
+      const { battle } = await attack(nickname);
+      setBattle(battle);
     } catch (error) {
       console.error("Error al atacar:", error);
+    } finally {
+      setIsPlayerAttacking(false);
     }
   };
 
@@ -42,6 +48,7 @@ export const useBattle = () => {
     status,
     players,
     isPlayerTurn,
+    isPlayerAttacking,
     handleAttack,
   };
 };

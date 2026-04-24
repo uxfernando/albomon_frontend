@@ -14,7 +14,7 @@ const VersusLayer: React.FC<VersusLayerProps> = ({ ...props }) => {
     >
       <div>
         <div className="text-xs mb-2 md:text-sm">
-          {players.current?.nickname || "Entrenador 1"}
+          {players.current?.nickname}
         </div>
         <div className="flex items-center gap-2">
           {players.current?.pokemonTeam.map((pokemon) => (

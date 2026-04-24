@@ -3,6 +3,7 @@ import { eventBus } from "@/utils/eventBus";
 import { NotifierEvent } from "@/enums/INotifier";
 import PixelButton from "@/components/ui/PixelButton/PixelButton";
 import PikachuRunning from "@/assets/pokemons/pikachu-running.gif";
+
 const OpponentDisconnect: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [nickname, setNickname] = useState<string | null>(null);

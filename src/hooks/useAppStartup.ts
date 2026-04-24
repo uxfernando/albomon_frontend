@@ -1,24 +1,30 @@
 import { useEffect, useState } from "react";
 import { useSessionStore } from "@/store/useSessionStore";
+import { setServerIpToClient } from "@/clients/http";
+import { useAppReset } from "./useAppReset";
+import { checkServerHealth } from "@/api/health";
 import { connectSocket } from "@/clients/socket";
 import { getBattleDetails } from "@/api/battle";
 import { useBattleStore } from "@/store/useBattleStore";
-import { useAppReset } from "./useAppReset";
 
 export const useAppStartup = () => {
   const { resetStorage } = useAppReset();
   const [isReady, setIsReady] = useState(false);
   const nickname = useSessionStore((state) => state.nickname);
-  const clearSession = useSessionStore((state) => state.clearSession);
+  const serverIp = useSessionStore((state) => state.serverIp);
 
   useEffect(() => {
     initializeServices();
-  }, [nickname, clearSession]);
+  }, []);
 
   const initializeServices = async () => {
     setIsReady(false);
 
     try {
+      setServerIpToClient(serverIp);
+
+      if (serverIp) await checkServerHealth();
+
       if (nickname) {
         const { battle } = await getBattleDetails();
 
