@@ -1,7 +1,7 @@
-import { useState, ChangeEvent, useEffect } from "react";
+import { useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSessionStore } from "@/store/useSessionStore";
-import { useAppStartup } from "@/hooks/useAppStartup";
+import { useBattleStore } from "@/store/useBattleStore";
 import {
   cleanNickname,
   isValidNickname,
@@ -9,22 +9,16 @@ import {
 } from "@/utils/nickname";
 import { ROUTES } from "@/constants/routes";
 import { joinLobby } from "@/api/lobby";
+import { connectSocket } from "@/clients/socket";
 
 export const useLogin = () => {
   const navigate = useNavigate();
-  const nickname = useSessionStore((state) => state.nickname);
+  const serverIp = useSessionStore((state) => state.serverIp);
   const setNickname = useSessionStore((state) => state.setNickname);
-  const { initializeServices } = useAppStartup();
+  const setBattle = useBattleStore((state) => state.setBattle);
 
-  const [inputValue, setInputValue] = useState(nickname);
+  const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (nickname) {
-      initializeServices();
-      navigate(ROUTES.WAITING_OPPONENT);
-    }
-  }, [nickname]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
@@ -50,8 +44,12 @@ export const useLogin = () => {
     }
 
     try {
-      await joinLobby(inputValue);
+      const { battle } = await joinLobby(inputValue);
+
+      connectSocket(serverIp, inputValue);
       setNickname(inputValue);
+      setBattle(battle);
+      navigate(ROUTES.WAITING_OPPONENT);
     } catch (error: any) {
       if (error.response?.data?.error) {
         setError(error.response.data.error);

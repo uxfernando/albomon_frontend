@@ -11,6 +11,7 @@ function App() {
   if (isDuplicate) {
     return <TabDetection />;
   }
+
   if (!isReady) {
     return <Loading />;
   }

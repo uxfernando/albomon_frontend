@@ -7,7 +7,7 @@ import { eventBus } from "@/utils/eventBus";
 import { useEffect, useState } from "react";
 
 const AttackLayer = () => {
-  const { isPlayerTurn, handleAttack } = useBattle();
+  const { isPlayerAttacking, isPlayerTurn, handleAttack } = useBattle();
   const playerThrowPokeballPlayed = useAnimationStore((state) =>
     state.hasPlayed(ANIMATION_NAMES.PLAYER_THROW_POKEBALL),
   );
@@ -15,7 +15,7 @@ const AttackLayer = () => {
     state.hasPlayed(ANIMATION_NAMES.OPPONENT_THROW_POKEBALL),
   );
 
-  const [currentPofemonDefeat, setCurrentPokemonDefeat] = useState(false);
+  const [currentPokemonDefeat, setCurrentPokemonDefeat] = useState(false);
   useEffect(() => {
     const handlePokemonDefeat = (data: { player: string }) => {
       if (data.player === "current") setCurrentPokemonDefeat(true);
@@ -32,11 +32,16 @@ const AttackLayer = () => {
     };
   }, []);
 
-  if (!playerThrowPokeballPlayed || !opponentThrowPokeballPlayed) return;
+  if (
+    !playerThrowPokeballPlayed ||
+    !opponentThrowPokeballPlayed ||
+    isPlayerAttacking
+  )
+    return;
 
   return (
     <div className={`absolute bottom-[6%] right-[6%]`}>
-      {isPlayerTurn && !currentPofemonDefeat ? (
+      {isPlayerTurn && !currentPokemonDefeat ? (
         <PixelButton className="px-12" onClick={handleAttack}>
           Atacar al rival
         </PixelButton>
