@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useSessionStore } from "@/store/useSessionStore";
-import { setServerIpToClient } from "@/clients/http";
 import { useAppReset } from "./useAppReset";
 import { checkServerHealth } from "@/api/health";
 import { connectSocket } from "@/clients/socket";
@@ -11,7 +10,6 @@ export const useAppStartup = () => {
   const { resetStorage } = useAppReset();
   const [isReady, setIsReady] = useState(false);
   const nickname = useSessionStore((state) => state.nickname);
-  const serverIp = useSessionStore((state) => state.serverIp);
 
   useEffect(() => {
     initializeServices();
@@ -21,10 +19,6 @@ export const useAppStartup = () => {
     setIsReady(false);
 
     try {
-      setServerIpToClient(serverIp);
-
-      if (serverIp) await checkServerHealth();
-
       if (nickname) {
         const { battle } = await getBattleDetails();
 
