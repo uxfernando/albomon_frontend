@@ -18,6 +18,8 @@ export const useAppStartup = () => {
   const initializeServices = async () => {
     setIsReady(false);
 
+    await checkServerHealth();
+
     try {
       if (nickname) {
         const { battle } = await getBattleDetails();

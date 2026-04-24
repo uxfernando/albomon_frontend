@@ -13,7 +13,6 @@ import { connectSocket } from "@/clients/socket";
 
 export const useLogin = () => {
   const navigate = useNavigate();
-  const serverIp = useSessionStore((state) => state.serverIp);
   const setNickname = useSessionStore((state) => state.setNickname);
   const setBattle = useBattleStore((state) => state.setBattle);
 
@@ -46,7 +45,7 @@ export const useLogin = () => {
     try {
       const { battle } = await joinLobby(inputValue);
 
-      connectSocket(serverIp, inputValue);
+      connectSocket(inputValue);
       setNickname(inputValue);
       setBattle(battle);
       navigate(ROUTES.WAITING_OPPONENT);
